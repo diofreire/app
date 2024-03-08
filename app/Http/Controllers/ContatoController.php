@@ -4,23 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\SiteContato;
+use App\MotivoContato;
 
 class ContatoController extends Controller
 {
     public function contato(Request $request) {
 
-        // Simulação de acesso ao Banco de dados
-        $motivo_contatos = [
-            '1' => 'Dúvida',
-            '2' => 'Elogio',
-            '3' => 'Reclamação'
-        ];
+        // Recupera do banco o motivo Contato
+        $motivoContatos = MotivoContato::all();
 
         return view(
             'site.contato',
             [
-                'titulo' => 'Contato (teste)',
-                'motivo_contatos' => $motivo_contatos
+                'titulo' => 'Contato',
+                'motivo_contatos' => $motivoContatos
             ]
         );
     }
