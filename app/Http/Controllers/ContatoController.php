@@ -35,7 +35,7 @@ class ContatoController extends Controller
             ],
             [
                'required' => 'O campo :attribute precisa ser preenchido',
-               'motivo_contatos_id' => 'O campo Motivo Contato precisa ser preenchido',
+               'motivo_contatos_id.required' => 'O campo Motivo Contato precisa ser preenchido',
                'nome.min' => 'O campo :attribute precisa ter no mínomo 3 caracteres',
                'nome.max' => 'O campo :attribute precisa ter no máximo 40 caracteres',
                'email.email' => 'O campo :attribute precisa ser um e-mail válido',
