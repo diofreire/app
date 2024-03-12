@@ -20,6 +20,8 @@ class LogAcessoMiddleware
     {
         LogAcesso::create(['log' => "IP {$request->server->get('REMOTE_ADDR')} requisitou a rota {$request->getRequestUri()}"]);
 
+//        echo 'Passou pelo middleware Log';
+//        echo "<br />";
         return $next($request);
         //return Response('Chegamos no middleware com create');
     }
