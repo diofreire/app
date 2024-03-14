@@ -23,22 +23,17 @@ class AutenticacaoMiddleware
         string $perfil
     ) {
 
-        echo $metodoAutenticacao .' - '. $perfil;
-        echo "<br/>";
-        // Verifica se o usuário possui acesso a rota
-        if($metodoAutenticacao == 'padrao') {
-            echo "Verifica o usuário e senha no banco de dados";
-        } elseif($metodoAutenticacao == 'ldap') {
-            echo "Verifica o usuário e senha no banco de AD";
-        }
-        echo "<br/>";
-
-        if(false) {
+        session_start();
+        if(isset($_SESSION['email']) && $_SESSION['email'] != '') {
             return $next($request);
         } else {
-            return Response('Acesso negado! Rota exige autenticação');
+            return redirect()->route(
+                'site.login',
+                [
+                    'erro' => 2
+                ]
+            );
         }
-
 
     }
 }
