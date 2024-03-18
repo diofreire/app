@@ -31,7 +31,7 @@
                                  <th>{{$fornecedor->uf}}</th>
                                  <th>{{$fornecedor->email}}</th>
                                  <th>Excluir</th>
-                                 <th>Editar</th>
+                                 <th><a href="{{ route('app.fornecedor.editar', $fornecedor->id) }}">Editar</a></th>
                              </tr>
                          @endforeach
                      </tbody>
