@@ -80,4 +80,12 @@ class FornecedorController extends Controller
             ]
         );
     }
+
+    public function excluir(int $id) {
+        if(Fornecedor::find($id)->delete()) {
+            return redirect()->route('app.fornecedor'); //['msg' => "Registro $id deletado com sucesso"]
+        } else {
+            echo "Falha na exclusão";
+        }
+    }
 }
