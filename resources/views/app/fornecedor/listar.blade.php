@@ -36,7 +36,21 @@
                          @endforeach
                      </tbody>
                  </table>
+                 {{-- Paginação--}}
+                 {{-- Appends: Mantém os criterios de busca --}}
+
+                 {{ $fornecedores->appends($request)->links() }}
+                 <!--
+                 <br>
+                 {{ $fornecedores->count() }} - Total de registros por página
+                 <br>
+                 {{ $fornecedores->total() }} - Total de registros
+                 <br>
+                 {{ $fornecedores->firstItem() }} - Número do primeiro registro da página
+                 -->
+                 Exibindo {{ $fornecedores->count() }} fornecedores de {{ $fornecedores->total() }} de {{ $fornecedores->firstItem() }} a {{ $fornecedores->lastItem() }}
              </div>
+
         </div>
     </div>
 @endsection
