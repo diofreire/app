@@ -1,14 +1,19 @@
 @extends('app.layouts.basico')
 
-@section('titulo', 'Fornecedor Adicionar')
+@section('titulo', 'Fornecedor')
 
 @section('conteudo')
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
-            <p>Fornecedor</p>
+            <p>Adicionar Fornecedor</p>
         </div>
-        @component('app.fornecedor._components.menu')
-
+        @component(
+                    'app.layouts._components.menu',
+                    [
+                        'novo' => 'app.fornecedor.adicionar',
+                        'consulta' => 'app.fornecedor'
+                    ]
+                )
         @endcomponent
         <div class="informacao-pagina">
             {{ $msg ?? ''}}

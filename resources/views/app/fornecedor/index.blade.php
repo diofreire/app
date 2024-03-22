@@ -7,8 +7,13 @@
         <div class="titulo-pagina-2">
             <p>Fornecedor</p>
         </div>
-        @component('app.fornecedor._components.menu')
-
+        @component(
+                    'app.layouts._components.menu',
+                    [
+                        'novo' => 'app.fornecedor.adicionar',
+                        'consulta' => 'app.fornecedor'
+                    ]
+                )
         @endcomponent
         <div class="informacao-pagina">
             <div style="width: 30%; margin-left: auto; margin-right: auto;">
