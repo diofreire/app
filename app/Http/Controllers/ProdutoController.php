@@ -18,7 +18,7 @@ class ProdutoController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index(Request $request, string $msg = '')
+    public function index(Request $request)
     {
         $produtos = Produto::paginate(10);
 
@@ -72,7 +72,7 @@ class ProdutoController extends Controller
         $msg = 'Cadastrado realizado com sucesso';
 
         // Possível realizar trativas dos metodos aqui
-        return redirect()->route('produto.index', ['msg' => $msg]);
+        return redirect()->route('produto.index');
     }
 
     /**
