@@ -3,10 +3,6 @@
         @method('PUT')
 @else
     <form action="{{ route('produto-detalhe.store') }}" method="post">
-@endif
-        @csrf
-        <input type="hidden" name="id" value="{{ $produto_detalhe->id ?? ''}}">
-
         <select name="produto_id">
             <option>-- Selecione o Produto --</option>
 
@@ -15,12 +11,19 @@
             @endforeach
         </select>
         {{ $errors->has('produto_id') ? $errors->first('produto_id') : '' }}<br>
+@endif
+        @csrf
+        <input type="hidden" name="id" value="{{ $produto_detalhe->id ?? ''}}">
+        <div style="text-align: left">Comprimento</div>
         <input name="comprimento" value="{{ $produto_detalhe->comprimento ?? old('comprimento') }}" type="text" placeholder="Comprimento" class="borda-preta">
         {{ $errors->has('comprimento') ? $errors->first('comprimento') : '' }}<br>
+        <div style="text-align: left">Largura</div>
         <input name="largura" value="{{ $produto_detalhe->largura ?? old('largura') }}" type="text" placeholder="Largura" class="borda-preta">
         {{ $errors->has('largura') ? $errors->first('largura') : '' }}<br>
+        <div style="text-align: left">Altura</div>
         <input name="altura" value="{{ $produto_detalhe->altura ?? old('largura') }}" type="text" placeholder="Altura" class="borda-preta">
         {{ $errors->has('Altura') ? $errors->first('Altura') : '' }}<br>
+        <div style="text-align: left">Unidade</div>
         <select name="unidade_id">
             <option>-- Selecione a Unidade de Medida --</option>
 
