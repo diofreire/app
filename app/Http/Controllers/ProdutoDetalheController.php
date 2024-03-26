@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\ItemDetalhe;
 use App\Produto;
 use App\ProdutoDetalhe;
 use App\Unidade;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -20,7 +22,8 @@ class ProdutoDetalheController extends Controller
      */
     public function index(Request $request)
     {
-        $produtosDetalhes = ProdutoDetalhe::paginate(10);
+        // Carregamento Eager
+        $produtosDetalhes = ItemDetalhe::width(['itemDetalhe'])->paginate(10);
 
         return view('app.produto_detalhe.index',
             [
@@ -49,7 +52,7 @@ class ProdutoDetalheController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -115,7 +118,7 @@ class ProdutoDetalheController extends Controller
      *
      * @param Request $request
      * @param ProdutoDetalhe $produtoDetalhe
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(Request $request, ProdutoDetalhe $produtoDetalhe)
     {

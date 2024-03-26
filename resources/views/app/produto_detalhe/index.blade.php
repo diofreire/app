@@ -27,7 +27,6 @@
                         <th>Altura</th>
                         <th></th>
                         <th></th>
-                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -37,7 +36,6 @@
                             <td>{{$produtoDetalhe->comprimento}}</td>
                             <td>{{$produtoDetalhe->largura}}</td>
                             <td>{{$produtoDetalhe->altura}}</td>
-                            <td><a href="{{ route('produto.show', ['produto' => $produtoDetalhe->id]) }}">Visualizar</a></td>
                             <td>
                                 <form id='form_{{$produtoDetalhe->id}}' action="{{ route('produto.destroy', ['produto' => $produtoDetalhe->id]) }}" method="post">
                                     @csrf
