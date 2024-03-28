@@ -22,7 +22,8 @@
                     'app.produto._components.form_create_edit',
                     [
                         'edit' => false,
-                        'unidades' => $unidades
+                        'unidades' => $unidades,
+                        'fornecedores' => $fornecedores
                     ]
                 )
                 @endcomponent

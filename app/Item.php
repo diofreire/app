@@ -11,7 +11,7 @@ class Item extends Model
 {
     use SoftDeletes;
     protected $table = 'produtos';
-    protected $fillable = ['nome', 'descricao', 'peso', 'unidade_id'];
+    protected $fillable = ['nome', 'descricao', 'peso', 'unidade_id', 'fornecedor_id'];
 
     // Verifica em ORM a relação entre as tabelas Produtos e ProdutoDetalha
     public function produtoDetalhe(): HasOne

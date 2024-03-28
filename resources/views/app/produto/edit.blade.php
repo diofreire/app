@@ -22,7 +22,8 @@
                      [
                          'edit' => true,
                          'produto' => $produto,
-                         'unidades' => $unidades
+                         'unidades' => $unidades,
+                         'fornecedores' => $fornecedores
                      ]
                  )
                 @endcomponent

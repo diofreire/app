@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Fornecedor;
+use App\Item;
 use App\Produto;
 use App\Unidade;
 use Exception;
@@ -10,7 +12,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use App\Item;
 
 class ProdutoController extends Controller
 {
@@ -39,7 +40,13 @@ class ProdutoController extends Controller
     public function create()
     {
         // Recupera do banco o motivo Contato
-        return view('app.produto.create', ['unidades' => Unidade::all()]);
+        return view(
+            'app.produto.create',
+            [
+                'unidades' => Unidade::all(),
+                'fornecedores' => Fornecedor::all()
+            ]
+        );
     }
 
     /**
@@ -48,14 +55,15 @@ class ProdutoController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate(
             [
                 'nome' => 'required|min:3|max:40',
                 'descricao' => 'required|min:3|max:2000',
                 'peso' => 'required|integer',
-                'unidade_id' => 'exists:unidades,id'
+                'unidade_id' => 'exists:unidades,id',
+                'fornecedor_id' => 'exists:fornecedores,id',
             ],
             [
                 'required' => 'O campo :attribute precisa ser preenchido',
@@ -65,11 +73,11 @@ class ProdutoController extends Controller
                 'descricao.max' => 'O campo :attribute precisa ter no máximo 200 caracteres',
                 'peso.integer' => 'O campo :attribute precisa ser inteiro',
                 'unidade_id.exists' => 'A unidade de medida informada não existe',
+                'fornecedor_id.exists' => 'O fornecedor informado não não existe',
             ]
         );
 
-
-        Produto::create($request->all());
+        Item::create($request->all());
         $msg = 'Cadastrado realizado com sucesso';
 
         // Possível realizar trativas dos metodos aqui
@@ -99,7 +107,8 @@ class ProdutoController extends Controller
         return view('app.produto.edit',
             [
                 'produto' => $produto,
-                'unidades' => Unidade::all()
+                'unidades' => Unidade::all(),
+                'fornecedores' => Fornecedor::all()
             ]);
     }
 
@@ -107,13 +116,32 @@ class ProdutoController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Produto $produto
+     * @param Item $produto
      * @return RedirectResponse
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, Item $produto): RedirectResponse
     {
-         $produto->update($request->all());
-         return redirect()->route('produto.show', ['produto' => $produto->id, 'msg' => 'Produto atualizado com sucesso']);
+        $request->validate(
+            [
+                'nome' => 'required|min:3|max:40',
+                'descricao' => 'required|min:3|max:2000',
+                'peso' => 'required|integer',
+                'unidade_id' => 'exists:unidades,id',
+                'fornecedor_id' => 'exists:fornecedores,id',
+            ],
+            [
+                'required' => 'O campo :attribute precisa ser preenchido',
+                'nome.min' => 'O campo :attribute precisa ter no mínomo 3 caracteres',
+                'nome.max' => 'O campo :attribute precisa ter no máximo 40 caracteres',
+                'descricao.min' => 'O campo :attribute precisa ter no mínomo 3 caracteres',
+                'descricao.max' => 'O campo :attribute precisa ter no máximo 200 caracteres',
+                'peso.integer' => 'O campo :attribute precisa ser inteiro',
+                'unidade_id.exists' => 'A unidade de medida informada não existe',
+                'fornecedor_id.exists' => 'O fornecedor informado não não existe',
+            ]
+        );
+        $produto->update($request->all());
+        return redirect()->route('produto.show', ['produto' => $produto->id, 'msg' => 'Produto atualizado com sucesso']);
     }
 
     /**
@@ -123,7 +151,7 @@ class ProdutoController extends Controller
      * @return RedirectResponse
      * @throws Exception
      */
-    public function destroy(Produto $produto)
+    public function destroy(Produto $produto): RedirectResponse
     {
         $produto->delete();
         return redirect()->route('produto.index');
