@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -20,5 +21,10 @@ class Item extends Model
             'produto_id',
             'id'
         );
+    }
+
+    public function fornecedor(): BelongsTo
+    {
+        return $this->belongsTo('App\Fornecedor');
     }
 }
