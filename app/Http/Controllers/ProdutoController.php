@@ -140,6 +140,7 @@ class ProdutoController extends Controller
                 'fornecedor_id.exists' => 'O fornecedor informado não não existe',
             ]
         );
+
         $produto->update($request->all());
         return redirect()->route('produto.show', ['produto' => $produto->id, 'msg' => 'Produto atualizado com sucesso']);
     }

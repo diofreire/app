@@ -1,17 +1,17 @@
 @extends('app.layouts.basico')
 
-@section('titulo', 'Cliente')
+@section('titulo', 'Pedido')
 
 @section('conteudo')
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
-            <p>Listagem de Clientes</p>
+            <p>Listagem de Pedidos</p>
         </div>
         @component(
                     'app.layouts._components.menu',
                     [
-                        'novo' => 'cliente.create',
-                        'consulta' => 'cliente.index'
+                        'novo' => 'pedido.create',
+                        'consulta' => 'pedido.index'
                     ]
                 )
         @endcomponent
@@ -21,23 +21,25 @@
                 <table border="1" width="100%">
                     <thead>
                     <tr>
-                        <th>Nome</th>
+                        <th>ID Pedido</th>
+                        <th>Cliente</th>
                         <th></th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($clientes as $cliente)
+                    @foreach($pedidos as $pedido)
                         <tr>
-                            <td>{{$cliente->nome}}</td>
+                            <td>{{$pedido->id}}</td>
+                            <td>{{$pedido->cliente->nome}}</td>
                             <td>
-                                <form id='form_{{$cliente->id}}' action="{{ route('cliente.destroy', ['cliente' => $cliente->id]) }}" method="post">
+                                <form id='form_{{$pedido->id}}' action="{{ route('pedido.destroy', ['pedido' => $pedido->id]) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="#" onclick="document.getElementById('form_{{$cliente->id}}').submit()">Excluir</a>
+                                    <a href="#" onclick="document.getElementById('form_{{$pedido->id}}').submit()">Excluir</a>
                                 </form>
                             </td>
-                            <td><a href="{{ route('cliente.edit', ['cliente' => $cliente->id]) }}">Editar</a></td>
+                            <td><a href="{{ route('pedido.edit', ['pedido' => $pedido->id]) }}">Editar</a></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -45,16 +47,16 @@
                 {{-- Paginação--}}
                 {{-- Appends: Mantém os criterios de busca --}}
 
-                {{ $clientes->appends($request)->links() }}
+                {{ $pedidos->appends($request)->links() }}
                 <!--
                  <br>
-                 {{ $clientes->count() }} - Total de registros por página
+                 {{ $pedidos->count() }} - Total de registros por página
                  <br>
-                 {{ $clientes->total() }} - Total de registros
+                 {{ $pedidos->total() }} - Total de registros
                  <br>
-                 {{ $clientes->firstItem() }} - Número do primeiro registro da página
+                 {{ $pedidos->firstItem() }} - Número do primeiro registro da página
                  -->
-                Exibindo {{ $clientes->count() }} clientes de {{ $clientes->total() }} de {{ $clientes->firstItem() }} a {{ $clientes->lastItem() }}
+                Exibindo {{ $pedidos->count() }} pedido de {{ $pedidos->total() }} de {{ $pedidos->firstItem() }} a {{ $pedidos->lastItem() }}
             </div>
 
         </div>
