@@ -11,7 +11,8 @@
                     'app.layouts._components.menu',
                     [
                         'novo' => 'pedido.create',
-                        'consulta' => 'pedido.index'
+                        'label' => 'Atualizar listagem',
+                        'link' => 'pedido.index'
                     ]
                 )
         @endcomponent
@@ -25,6 +26,7 @@
                         <th>Cliente</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,6 +34,7 @@
                         <tr>
                             <td>{{$pedido->id}}</td>
                             <td>{{$pedido->cliente->nome}}</td>
+                            <td><a href="{{ route('pedido-produto.create', ['pedido' => $pedido->id]) }}">Adicionar Produto</a></td>
                             <td>
                                 <form id='form_{{$pedido->id}}' action="{{ route('pedido.destroy', ['pedido' => $pedido->id]) }}" method="post">
                                     @csrf

@@ -11,7 +11,8 @@
                     'app.layouts._components.menu',
                     [
                         'novo' => 'cliente.create',
-                        'consulta' => 'cliente.index'
+                        'label' => 'Atualizar Clientes',
+                        'link' => 'cliente.index'
                     ]
                 )
         @endcomponent

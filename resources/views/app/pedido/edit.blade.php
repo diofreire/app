@@ -11,7 +11,8 @@
                     'app.layouts._components.menu',
                     [
                         'novo' => 'pedido.create',
-                        'consulta' => 'pedido.index'
+                        'label' => 'Voltar',
+                        'link' => 'pedido.index'
                     ]
                 )
         @endcomponent

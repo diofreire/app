@@ -11,7 +11,8 @@
                     'app.layouts._components.menu',
                     [
                         'novo' => 'app.fornecedor.adicionar',
-                        'consulta' => 'app.fornecedor'
+                        'label' => 'Voltar',
+                        'link' => 'app.fornecedor'
                     ]
                 )
         @endcomponent

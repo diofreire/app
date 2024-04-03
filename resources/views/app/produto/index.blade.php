@@ -11,7 +11,8 @@
                     'app.layouts._components.menu',
                     [
                         'novo' => 'produto.create',
-                        'consulta' => 'produto.index'
+                        'label' => 'Atualizar Listagem',
+                        'link' => 'produto.index'
                     ]
                 )
         @endcomponent
