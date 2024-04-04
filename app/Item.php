@@ -27,4 +27,13 @@ class Item extends Model
     {
         return $this->belongsTo('App\Fornecedor');
     }
+
+    public function pedidos() {
+        return $this->belongsToMany(
+            'App\Pedido', //1 - Modelo do relacionamento NxN em relação o Modelo que estamos implementando
+            'pedidos_produtos', //2 - É a tabela auxiliar que armazena os registros de relacionamento
+            'produto_id', //3 - Representa o nome da FK da tabela mapeada pelo model na tabela de relacionamento
+            'pedido_id' //4 - Representa o nome da FK da tabela mapeada pelo model utilizado no relacionamento que estamos implementando
+        );
+    }
 }
