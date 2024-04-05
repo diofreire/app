@@ -33,21 +33,21 @@
                     </thead>
                     <tbody>
                     @foreach($pedido->produtos as $produto)
-                        <tr>
-                            <td>{{$produto->id}}</td>
-                            <td>{{$produto->nome}}</td>
-                            <td>{{$produto->pivot->created_at->format('d/m/Y')}}</td>
-                            <td>
-                                <form id="form_{{$pedido->id}}_{{$produto->id}}" method="post" action="{{ route('pedido-produto.destroy', ['pedido' => $pedido->id, 'produto' => $produto->id])}}">
-                                    @method('DELETE')
-                                    @csrf
-                                    <a href="#" onclick="document.getElementById('form_{{$pedido->id}}_{{$produto->id}}').submit()">Excluir</a>
-                                </form>
-                            </td>
-
-
-
-                        </tr>
+                        <!-- #TODO É um bug? Itens deletados estão aparecendo. -->
+                        @if(!($produto->pivot->deleted_at))
+                            <tr>
+                                <td>{{$produto->id}}</td>
+                                <td>{{$produto->nome}} - {{$produto->pivot->id}}</td>
+                                <td>{{$produto->pivot->created_at->format('d/m/Y')}}</td>
+                                <td>
+                                    <form id="form_{{$produto->pivot->id}}" method="post" action="{{ route('pedido-produto.destroy', ['pedidoProduto' => $produto->pivot->id, 'pedido_id' => $pedido->id])}}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <a href="#" onclick="document.getElementById('form_{{$produto->pivot->id}}').submit()">Excluir</a>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>

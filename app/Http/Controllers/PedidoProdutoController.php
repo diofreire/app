@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Pedido;
+use App\PedidoProduto;
 use App\Produto;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -130,11 +132,12 @@ class PedidoProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Pedido $pedido
-     * @param Produto $produto
+     * @param PedidoProduto $pedidoProduto
+     * @param $pedido_id
      * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(Pedido $pedido, Produto $produto)
+    public function destroy(PedidoProduto $pedidoProduto, $pedido_id)
     {
         //convencional
         /*
@@ -144,10 +147,12 @@ class PedidoProdutoController extends Controller
         ])->delete();
         */
 
-        //detach (delete pelo relacionamento)
-        $pedido->produtos()->detach($produto->id);
-        //produto_id
+//        //detach (delete pelo relacionamento)
+//        $pedido->produtos()->detach($produto->id);
+//        //produto_id
+        $pedidoProduto->delete();
 
-        return redirect()->route('pedido-produto.create', ['pedido' => $pedido->id]);
+        //return redirect()->route('pedido-produto.create', ['pedido' => $pedido->id]);
+        return redirect()->route('pedido-produto.create', ['pedido' => $pedido_id]);
     }
 }

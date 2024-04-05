@@ -24,6 +24,6 @@ class Pedido extends Model
         return $this->belongsToMany(
             'App\Produto',
             'pedidos_produtos'
-        )->withPivot('created_at');
+        )->withPivot('id', 'created_at', 'deleted_at');
     }
 }
