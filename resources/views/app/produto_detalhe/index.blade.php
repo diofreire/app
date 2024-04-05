@@ -11,7 +11,8 @@
                     'app.layouts._components.menu',
                     [
                         'novo' => 'produto-detalhe.create',
-                        'consulta' => 'produto-detalhe.index'
+                        'label' => 'Voltar',
+                        'link' => 'produto-detalhe.index'
                     ]
                 )
         @endcomponent

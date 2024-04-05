@@ -23,7 +23,7 @@ class ProdutoDetalheController extends Controller
     public function index(Request $request)
     {
         // Carregamento Eager
-        $produtosDetalhes = ItemDetalhe::with(['itemDetalhe'])->paginate(10);
+        $produtosDetalhes = ItemDetalhe::with(['produtoDetalhe'])->paginate(10);
 
         return view('app.produto_detalhe.index',
             [

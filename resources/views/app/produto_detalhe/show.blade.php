@@ -10,8 +10,9 @@
         @component(
                     'app.layouts._components.menu',
                     [
-                        'novo' => 'produto.create',
-                        'consulta' => 'produto.index'
+                        'novo' => 'produto-detalhe.create',
+                        'label' => 'Voltar',
+                        'link' => 'produto-detalhe.index'
                     ]
                 )
         @endcomponent
