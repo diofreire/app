@@ -51,16 +51,45 @@ class PedidoProdutoController extends Controller
         $request->validate(
             [
                 'produto_id' => 'exists:produtos,id',
+                'quantidade' => 'required|integer'
             ],
             [
+                'required' => 'O campo :attribute precisa ser preenchido',
+                'quantidade.integer' => 'O campo :attribute precisa ser inteiro',
                 'produto_id.exists' => 'O produto informado não não existe',
             ]
         );
 
+        /*
         $pedidoProduto = new PedidoProduto();
         $pedidoProduto->pedido_id = $pedido->id;
         $pedidoProduto->produto_id = $request->get('produto_id');
+        $pedidoProduto->quantidade = $request->get('quantidade');
         $pedidoProduto->save();
+        **/
+
+        // Adicionar novos dados por meio do relacionamento
+        $pedido
+            ->produtos()
+            ->attach(
+                $request->get('produto_id'),
+                [
+                    'quantidade' => $request->get('quantidade')
+                ]
+            );
+
+        // Adicionar um ou mais itens de uma só vez
+        /**
+        $pedido
+            ->produtos()
+            ->attach(
+                [
+                    $request->get('produto_id') => [
+                        'quantidade' => $request->get('quantidade')
+                    ]
+                ]
+            );
+        */
 
         return redirect()->route('pedido-produto.create', ['pedido' => $pedido->id]);
     }
