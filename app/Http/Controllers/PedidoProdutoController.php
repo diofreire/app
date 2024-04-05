@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Pedido;
-use App\PedidoProduto;
 use App\Produto;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -131,11 +130,24 @@ class PedidoProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Pedido $pedido
+     * @param Produto $produto
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Pedido $pedido, Produto $produto)
     {
-        //
+        //convencional
+        /*
+        PedidoProduto::where([
+            'pedido_id' => $pedido->id,
+            'produto_id' => $produto->id
+        ])->delete();
+        */
+
+        //detach (delete pelo relacionamento)
+        $pedido->produtos()->detach($produto->id);
+        //produto_id
+
+        return redirect()->route('pedido-produto.create', ['pedido' => $pedido->id]);
     }
 }
